@@ -1,0 +1,23 @@
+---
+description: Project-wide conventions for the PEPL Next.js site
+alwaysApply: true
+---
+
+# PEPL Next.js Project Rules
+
+## Content / Copy
+- All copy and text **must** live in `lib/content.ts`. Never hardcode strings in page or component files.
+
+## Styling
+- Colors are defined as CSS variables in `app/globals.css`: `--bg`, `--ink`, `--acc`, `--hl`.
+- Do **not** hardcode new color values anywhere; always reference the CSS variables.
+- Border-radius is `0` everywhere.
+- Dividers are `2px` solid.
+- Headings are `uppercase`, font family is `Archivo`.
+
+## Architecture
+- Pages must remain **Server Components**. Do **not** add `'use client'` to page files.
+- Do **not** remove or modify `metadata` exports — they are required for SEO.
+
+## Build Validation
+- After every set of changes, run `npm run build` and fix any errors before finishing.

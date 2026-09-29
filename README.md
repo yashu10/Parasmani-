@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PEPL — Parasmani Engineering website (Next.js 15)
 
-## Getting Started
+11-page site, built from `design_handoff_pepl_nextjs/design/PEPL Website Orange.dc.html`.
 
-First, run the development server:
+## Local chalana
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Browser mein kholo: http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production build check: `npm run build` then `npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Vercel pe deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. GitHub pe ek khali repo banao (e.g. `pepl`) aur push karo:
+   ```bash
+   git init
+   git add .
+   git commit -m "PEPL site"
+   git branch -M main
+   git remote add origin https://github.com/<username>/pepl.git
+   git push -u origin main
+   ```
+2. vercel.com → **Add New → Project** → repo import → **Deploy** (preset Next.js hi rehne do).
+3. Optional env vars (Settings → Environment Variables): `.env.example` dekho.
+   Kuch bhi set na karo to bhi site chalegi. RFQ form tab submissions sirf Vercel logs mein dikhayega.
 
-## Learn More
+## Kya kahan hai
 
-To learn more about Next.js, take a look at the following resources:
+| Path | Kaam |
+|---|---|
+| `lib/content.ts` | Saari copy: industries, projects, machines, certs, RDSO docs, roles |
+| `app/<route>/page.tsx` | Har page (Server Components, apna `metadata`) |
+| `components/` | Header, Footer, CTA band, Background, motion, RFQ form, etc. |
+| `app/contact/actions.ts` | RFQ server action (zod + Resend, honeypot, rate limit) |
+| `lib/bg/scene.ts` | Three.js background (`NEXT_PUBLIC_BG_MODE=3d` pe) |
+| `app/sitemap.ts`, `app/robots.ts` | SEO. Indexing OFF until `NEXT_PUBLIC_ALLOW_INDEXING=1` |
+| `public/images/` | Logo + 33 photos |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Launch se pehle
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Client se high-res photos + usage rights, leadership portraits, plant film.
+- Pending facts confirm karke `NEXT_PUBLIC_SHOW_PENDING=0`.
+- Quality downloads ke PDFs (abhi notice dikhata hai) → `public/docs/` + `components/QualityDocs.tsx`.
+- RDSO PDFs abhi client ki current site se link hain. Self-host: `public/rdso/` mein copy, `NEXT_PUBLIC_RDSO_BASE=/rdso/`.
+- Privacy / Terms pages ka real text.
+- Final domain pe `NEXT_PUBLIC_SITE_URL` + `NEXT_PUBLIC_ALLOW_INDEXING=1`.
